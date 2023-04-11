@@ -1,0 +1,5 @@
+PyYAML
+pyperseo
+SPARQLWrapper
+chevron
+pandas
