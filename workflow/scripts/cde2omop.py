@@ -8,6 +8,7 @@ import csv, re
 import sys
 from perseo.main import get_files
 from datetime import date, datetime
+from functions import TableEdition
 
 ## Connect with GraphDB repo via SPARQL and send the query
 
@@ -109,28 +110,20 @@ for index, row in df_CONDITION_VISIT.iterrows():
         df_CONDITION_VISIT["visit_concept_id"][index] = "38004515" 
 
     date_string = df_CONDITION_VISIT["condition_start_date"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_CONDITION_VISIT["condition_start_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_CONDITION_VISIT["condition_start_datetime"][index] = date_calculated
 
     date_string = df_CONDITION_VISIT["condition_end_date"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_CONDITION_VISIT["condition_end_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_CONDITION_VISIT["condition_end_datetime"][index] = date_calculated
 
     date_string = df_CONDITION_VISIT["visit_start_date"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_CONDITION_VISIT["visit_start_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_CONDITION_VISIT["visit_start_datetime"][index] = date_calculated
 
     date_string = df_CONDITION_VISIT["visit_end_time"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_CONDITION_VISIT["visit_end_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_CONDITION_VISIT["visit_end_datetime"][index] = date_calculated
 
 
 df_CONDITION_VISIT[df_CONDITION_VISIT.columns[0:16]].to_csv("../data/CONDITION.csv", index = False, header=True)
@@ -151,22 +144,16 @@ for index, row in df_MEASUREMENT_VISIT.iterrows():
         df_MEASUREMENT_VISIT["visit_concept_id"][index] = "38004515" 
 
     date_string = df_MEASUREMENT_VISIT["measurement_date"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_MEASUREMENT_VISIT["measurement_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_MEASUREMENT_VISIT["measurement_datetime"][index] = date_calculated
 
     date_string = df_MEASUREMENT_VISIT["visit_start_date"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_MEASUREMENT_VISIT["visit_start_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_MEASUREMENT_VISIT["visit_start_datetime"][index] = date_calculated
 
     date_string = df_MEASUREMENT_VISIT["visit_end_time"][index]
-    date = datetime. strptime(date_string, '%Y-%m-%d')
-    time = datetime.min.time()
-    datetime = datetime.combine(date, time)
-    df_MEASUREMENT_VISIT["visit_end_datetime"][index] = datetime
+    date_calculated = TableEdition.date2datetime(date_string)
+    df_MEASUREMENT_VISIT["visit_end_datetime"][index] = date_calculated
 
 df_MEASUREMENT_VISIT[df_MEASUREMENT_VISIT.columns[0:19]].to_csv("../data/MEASUREMENT.csv", index = False, header=True)
 
