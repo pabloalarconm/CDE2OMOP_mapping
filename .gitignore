@@ -1,1 +1,2 @@
-workflow/scripts/config.yaml
+workflow/configuration/config.yaml
+workflow/scripts/__pycache__
