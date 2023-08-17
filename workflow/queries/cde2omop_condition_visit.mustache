@@ -12,16 +12,17 @@ SELECT distinct ?condition_occurrence_id ?person_id ?condition_concept_id ?condi
 WHERE {
     GRAPH ?g {
         ?role sio:SIO_000356 ?process ;  a sio:SIO_000016 .
-        ?process sio:SIO_000229 ?output ; a sio:SIO_000006 , ?process_type ; rdfs:label ?process_label ; sio:SIO_000291 ?target; sio:SIO_000230 ?input; sio:SIO_000552 ?route.			FILTER (?process_type != sio:SIO_000006) .
-        OPTIONAL {?process rdfs:label ?comments}
-        ?output sio:SIO_000628 ?attribute ;a sio:SIO_000015 , ?output_type ; rdfs:label ?output_label .FILTER (?output_type != sio:SIO_000015) .
-        ?attribute a sio:SIO_000614, ?condition_source_value ; sio:SIO_000332 obo:NCIT_C2991 . 
-        FILTER ( ?condition_source_value != sio:SIO_000614)
+        ?process sio:SIO_000229 ?output ; a sio:SIO_000006 , ?process_type; sio:SIO_000680 ?startdate; sio:SIO_000681 ?enddate. FILTER (?process_type != sio:SIO_000006) .
+        ?startdate a sio:SIO_000031 ; sio:SIO_000300 ?condition_start_date, ?visit_start_date .
+        ?enddate a sio:SIO_000032 ; sio:SIO_000300 ?condition_end_date , ?visit_end_time . 
+        ?output sio:SIO_000628 ?attribute ;a sio:SIO_000015 , ?output_type. FILTER (?output_type != sio:SIO_000015) .
+        ?attribute a sio:SIO_000614, ?condition_source_value ; sio:SIO_000332 ?attribute_about. 
+        FILTER (?attribute_about = obo:NCIT_C2991 || ?attribute_about = obo:NCIT_C100104). 
+        FILTER (?condition_source_value != sio:SIO_000614)
     }
-    ?g a obo:NCIT_C25616 ; sio:SIO_000068 ?timeline ; sio:SIO_000068 ?context ; sio:SIO_000680 ?startdate ; sio:SIO_000681 ?enddate ; sio:SIO_000300 ?condition_occurrence_id.
-    ?context a obo:NCIT_C25616 ; sio:SIO_000300 ?visit_occurrence_id  .
-    ?startdate a sio:SIO_000031 ; sio:SIO_000300 ?condition_start_date, ?visit_start_date .
-    ?enddate a sio:SIO_000032 ; sio:SIO_000300 ?condition_end_date , ?visit_end_time . 
+    ?g a obo:NCIT_C62143 ; sio:SIO_000068 ?timeline, ?context ; sio:SIO_000687 ?date ; sio:SIO_000300 ?condition_occurrence_id.
+    OPTIONAL{?context a obo:NCIT_C25499 ; sio:SIO_000300 ?visit_occurrence_id.}
+    ?date a sio:SIO_000418, obo:NCIT_C25164 ; sio:SIO_000300 ?date_value.
     ?timeline a obo:NCIT_C54576, sio:SIO_000417; sio:SIO_000332 ?individual .
     ?individual a sio:SIO_000498 ; sio:SIO_000671 ?individual_identifier .       
     ?individual_identifier a sio:SIO_000115 ; sio:SIO_000300 ?person_id .

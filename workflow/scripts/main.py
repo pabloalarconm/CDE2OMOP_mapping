@@ -76,23 +76,22 @@ for index, row in df_PERSON.iterrows():
     date = datetime. strptime(date_string, '%Y-%m-%d')
     time = datetime.min.time()
     datetime = datetime.combine(date, time)
-    df_PERSON["birth_datetime"][index] = datetime
-    df_PERSON["year_of_birth"][index] = datetime.year
-    df_PERSON["month_of_birth"][index] = datetime.month
-    df_PERSON["day_of_birth"][index] = datetime.day
-
+    df_PERSON.loc[index, "birth_datetime"] = datetime
+    df_PERSON.loc[index, "year_of_birth"] = datetime.year
+    df_PERSON.loc[index, "month_of_birth"] = datetime.month
+    df_PERSON.loc[index, "day_of_birth"] = datetime.day
 
     if row["race_concept_id"] == None:
-        df_PERSON["race_concept_id"][index] = 0     
+        df_PERSON.loc[index, "race_concept_id"] = 0
+
 
     if row["ethnicity_concept_id"] == None:
-        df_PERSON["ethnicity_concept_id"][index] = 0       
+        df_PERSON.loc[index, "ethnicity_concept_id"] = 0
 
 df_PERSON.to_csv("../data/PERSON.csv", index = False, header=True)
 print("PERSON table have been created")
 
             #################### DEATH ########################
-
 for index, row in df_DEATH.iterrows():
 
     date_string = df_DEATH["death_date"][index]
